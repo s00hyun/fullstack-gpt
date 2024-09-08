@@ -1,16 +1,13 @@
-from uuid import UUID
 import streamlit as st
-
+from langchain.callbacks.base import BaseCallbackHandler
 from langchain.chat_models import ChatOpenAI
 from langchain.document_loaders import UnstructuredFileLoader
-from langchain.text_splitter import CharacterTextSplitter
-from langchain.embeddings import OpenAIEmbeddings, CacheBackedEmbeddings
-from langchain.vectorstores import FAISS
-from langchain.storage import LocalFileStore
+from langchain.embeddings import CacheBackedEmbeddings, OpenAIEmbeddings
 from langchain.prompts import ChatPromptTemplate
-from langchain.schema.runnable import RunnablePassthrough, RunnableLambda
-from langchain.callbacks.base import BaseCallbackHandler
-
+from langchain.schema.runnable import RunnableLambda, RunnablePassthrough
+from langchain.storage import LocalFileStore
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.vectorstores import FAISS
 
 st.set_page_config(page_title="DocumentGPT", page_icon="📃")
 
@@ -81,8 +78,9 @@ prompt = ChatPromptTemplate.from_messages(
         (
             "system",
             """
-            Answer the question using ONLY the following context. If you don't know the answer just say you don't know. DON'T make anything up.
-            
+            Answer the question using ONLY the following context.
+            If you don't know the answer just say you don't know. DON'T make anything up.
+
             Context: {context}
             """,
         ),
