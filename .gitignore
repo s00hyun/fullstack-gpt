@@ -1,4 +1,5 @@
 env/
+env-huggingface/
 .env
 files/
 .cache/
